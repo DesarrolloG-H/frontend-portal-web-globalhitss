@@ -1,7 +1,7 @@
 <template>
   <div class="layout">
     <!-- Menú lateral -->
-    <SidebarMenu2 class="layout-sidebar" />
+    <SidebarMenu class="layout-sidebar" />
 
     <!-- Contenido dinámico -->
     <main class="layout-content">
@@ -11,7 +11,7 @@
 </template>
 
 <script setup>
-import SidebarMenu2 from '@/components/SideBarMenu2.vue'
+import SidebarMenu from '@/components/SideBarMenu.vue'
 </script>
 
 <style scoped>

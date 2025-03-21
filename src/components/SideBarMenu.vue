@@ -2,7 +2,7 @@
   <div class="sidebar" :class="{ active: isSidebarActive }">
     <div class="logo-content">
       <div class="logo">
-        <i class="bx bxl-google"></i>
+        <i class="bx bxl-ok-ru"></i>
         <h2 class="logo-name">Globalhitss</h2>
       </div>
       <i @click="toggleSidebar" class="bx bx-menu" id="btn-menu"></i>
@@ -46,238 +46,189 @@
 </template>
 
 <script setup>
-import { ref, defineEmits } from 'vue'
+import { ref } from 'vue'
 
 // Estado reactivo del sidebar
 const isSidebarActive = ref(false)
-const emit = defineEmits(['update:active'])
-
 const toggleSidebar = () => {
   isSidebarActive.value = !isSidebarActive.value
-  emit('update:active', isSidebarActive.value)
 }
 </script>
 
 <style scoped>
 .sidebar {
-  position: fixed;
-  top: 0;
-  left: 0;
-  height: 100%;
-  width: 78px;
   padding: 0.5rem 1rem;
-  transition: all 0.5s ease;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
 }
 
 .sidebar.active {
-  width: 250px;
-}
-
-.sidebar .logo-content .logo {
-  color: #fff;
-  display: flex;
-  align-items: center;
-  height: 3.125rem;
-  width: 100%;
-  align-items: center;
-  opacity: 0;
-  pointer-events: none;
+  inline-size: 50px;
   transition: all 0.5s ease;
 }
 
-.sidebar.active .logo-content .logo {
+/* LOGO STYLES */
+.logo-content {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.sidebar.active .logo-content {
+  justify-content: center;
+  transition: all 0.5s ease;
+}
+
+.logo-content .logo {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
   opacity: 1;
+  pointer-events: none;
+}
+
+.sidebar.active .logo-content .logo {
+  display: none;
   pointer-events: none;
 }
 
 .logo-content .logo i {
-  font-size: 2rem;
-  margin-inline-end: 0.5rem;
+  font-size: 2.5rem;
 }
 
-.logo-content .logo .logo-name {
-  font-size: 1.25rem;
-  font-weight: 400;
-}
-
-.sidebar #btn-menu {
-  position: absolute;
-  color: #fff;
-  cursor: pointer;
-  top: 0.5rem;
-  left: 45%;
+.logo .logo-name {
   font-size: 1.5rem;
-  block-size: 3.125rem;
-  inline-size: 3.125rem;
-  text-align: center;
-  line-height: 3.125rem;
-  transform: translateX(-50%);
+  font-weight: 400;
+  margin: 0;
 }
 
-.sidebar.active #btn-menu {
-  left: 90%;
+.logo-content #btn-menu {
+  font-size: 1.5rem;
+  cursor: pointer;
 }
-.sidebar ul {
-  margin-top: 1.5rem;
-  padding: 0;
+
+/* NAV STYLES */
+.nav-content {
+  margin-block-start: 2rem;
+  flex: 1;
+  padding-inline: 0rem;
   display: flex;
   flex-direction: column;
+  padding-inline: 1rem;
   gap: 1rem;
 }
 
-.sidebar ul li {
-  position: relative;
-  margin: 0 0.5rem;
+.nav-content .nav-list {
   list-style: none;
-  line-height: 1.25rem;
-}
-
-.sidebar ul li a {
-  display: flex;
-  align-items: center;
-  color: #fff;
-  text-decoration: none;
-  transition: all 0.4s ease;
-  border-radius: 1rem;
-  block-size: 50px;
-  inline-size: 50px;
-  white-space: nowrap;
-}
-
-.sidebar.active ul li a {
-  block-size: 100%;
-  inline-size: 100%;
-}
-
-.sidebar ul li a:hover {
-  background-color: #fff;
-  color: #000;
-}
-
-.sidebar ul li a i {
-  block-size: 3.125rem;
-  min-inline-size: 3.125rem;
-  border-radius: 1rem;
-  line-height: 3.125rem;
-  text-align: center;
-  font-size: 1.5rem;
   display: flex;
   align-items: center;
   justify-content: center;
 }
 
-.sidebar .links-name {
-  opacity: 0;
-  pointer-events: none;
-}
-
-.sidebar.active .links-name {
-  opacity: 1;
-  pointer-events: auto;
-}
-
-.sidebar .profile-content {
-  position: absolute;
-  color: #fff;
-  bottom: 0;
-  left: 0;
-  inline-size: 100%;
-}
-.sidebar .profile-content .profile {
-  position: relative;
-  padding: 10px 6px;
-  height: 60px;
-  transition: all 0.4s ease;
-  background-color: transparent;
-}
-
-.sidebar.active .profile-content .profile {
-  background-color: #1d1e27;
-}
-
-.profile-content .profile .profile-details {
-  display: flex;
-  align-items: center;
-  opacity: 0;
-  pointer-events: none;
-  white-space: nowrap;
-}
-
-.sidebar.active .profile .profile-details {
-  opacity: 1;
-  pointer-events: auto;
-}
-
-.profile .profile-details img {
-  width: 45px;
-  height: 45px;
-  object-fit: cover;
-  border-radius: 1rem;
-}
-.profile .profile-details .name-job {
-  margin-inline-start: 0.8rem;
-}
-
-.profile .profile-details .name-job .name {
-  font-size: 1rem;
-  font-weight: 400;
-}
-
-.profile .profile-details .name-job .job {
-  font-size: 0.8rem;
-  font-weight: 300;
-}
-
-.profile #logout {
-  position: absolute;
-  top: 40%;
-  right: 15%;
-  transform: translateY(-50%);
-  font-size: 1.5rem;
-  line-height: 50px;
-  border-radius: 1rem;
-  width: 50px;
-  height: 50px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  text-align: center;
-  transition: all 0.4s ease;
-  margin-inline-end: 1rem;
-  background-color: #1d1e27;
-}
-
-.sidebar.active #logout {
-  right: 0;
-  background-color: transparent;
-}
-
-.sidebar ul li .tooltip {
+.sidebar .nav-content .nav-list .tooltip {
   position: absolute;
   left: 90px;
-  top: 0;
-  transform: translateY(-50%);
   border-radius: 6px;
-  text-align: center;
   line-height: 35px;
+  text-align: center;
+  font-weight: 400;
+  font-size: 0.9rem;
   height: 35px;
   width: 90px;
   color: #000;
   background-color: #fff;
   box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
-  transition: 0s;
-  opacity: 0;
   pointer-events: none;
+  transition: 0.7s;
   display: block;
+  opacity: 0;
 }
 
-.sidebar.active ul li .tooltip {
+.sidebar.active .nav-content .nav-list:hover .tooltip {
+  opacity: 1;
+  transition: 0.7s;
+}
+
+.nav-content .nav-list .item {
+  text-decoration: none;
+  padding-block: 0.4rem;
+  border-radius: 1rem;
+  color: #fff;
+  display: flex;
+  align-items: center;
+
+  gap: 1rem;
+  flex: 1;
+  padding-inline-start: 1rem;
+  transition: all 0.4s ease;
+  white-space: nowrap;
+}
+
+.sidebar.active .nav-content .nav-list .item {
+  padding: 0.5rem;
+  justify-content: center;
+}
+
+.nav-content .nav-list .item:hover {
+  background-color: #fff;
+  color: #000;
+}
+
+.nav-content .nav-list .item i {
+  font-size: 1.3rem;
+}
+
+.nav-content .nav-list .item .links-name {
+  font-size: 1rem;
+  font-weight: 300;
+}
+
+.sidebar.active .nav-list .item .links-name {
   display: none;
 }
 
-.sidebar ul li:hover .tooltip {
-  transition: all 0.5s ease;
-  opacity: 1;
-  top: 50%;
+/* PROFILE STYLES */
+
+.profile-content .profile {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.sidebar.active .profile-content .profile {
+  justify-content: center;
+}
+
+.profile-content .profile .profile-details {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.sidebar.active .profile-content .profile .profile-details {
+  display: none;
+}
+
+.profile-content .profile .profile-details img {
+  width: 45px;
+  height: 45px;
+  object-fit: cover;
+  border-radius: 1rem;
+}
+.profile-content .profile .profile-details .name-job .name {
+  font-size: 1rem;
+  font-weight: 400;
+}
+
+.profile-content .profile .profile-details .name-job .job {
+  font-size: 0.8rem;
+  font-weight: 300;
+}
+
+.profile-content .profile #logout {
+  font-size: 1.5rem;
+  cursor: pointer;
 }
 </style>
