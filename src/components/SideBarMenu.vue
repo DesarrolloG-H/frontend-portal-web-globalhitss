@@ -1,11 +1,10 @@
 <template>
   <div class="sidebar" :class="{ active: isSidebarActive }">
-    <div class="logo-content">
+    <div class="logo-content" @click="toggleSidebar">
       <div class="logo">
-        <i class="bx bxl-ok-ru"></i>
-        <h2 class="logo-name">Globalhitss</h2>
+        <img src="../assets/logo-hitss.png" alt="" height="50" width="50" />
+        <h1 class="logo-name">Globalhitss</h1>
       </div>
-      <i @click="toggleSidebar" class="bx bx-menu" id="btn-menu"></i>
     </div>
     <ul class="nav-content">
       <li class="nav-list">
@@ -33,7 +32,7 @@
     <div class="profile-content">
       <div class="profile">
         <div class="profile-details">
-          <img src="" alt="" />
+          <i class="bx bxs-user"></i>
           <div class="name-job">
             <div class="name">Jean Pool</div>
             <div class="job">GCME</div>
@@ -73,11 +72,17 @@ const toggleSidebar = () => {
   display: flex;
   justify-content: space-between;
   align-items: center;
+  margin-block-start: 1rem;
+  background-color: #fff;
+  border-radius: 1rem;
+  padding: 0.5rem 1rem;
+  cursor: pointer;
 }
 
 .sidebar.active .logo-content {
   justify-content: center;
   transition: all 0.5s ease;
+  padding: 0;
 }
 
 .logo-content .logo {
@@ -89,7 +94,7 @@ const toggleSidebar = () => {
   pointer-events: none;
 }
 
-.sidebar.active .logo-content .logo {
+.sidebar.active .logo-content .logo .logo-name {
   display: none;
   pointer-events: none;
 }
@@ -102,11 +107,17 @@ const toggleSidebar = () => {
   font-size: 1.5rem;
   font-weight: 400;
   margin: 0;
+  color: #000;
 }
 
 .logo-content #btn-menu {
   font-size: 1.5rem;
   cursor: pointer;
+  color: #000;
+}
+
+.sidebar.active .logo-content #btn-menu {
+  font-size: 2rem;
 }
 
 /* NAV STYLES */
@@ -144,6 +155,7 @@ const toggleSidebar = () => {
   transition: 0.7s;
   display: block;
   opacity: 0;
+  z-index: 9999;
 }
 
 .sidebar.active .nav-content .nav-list:hover .tooltip {
@@ -177,16 +189,20 @@ const toggleSidebar = () => {
 }
 
 .nav-content .nav-list .item i {
-  font-size: 1.3rem;
+  font-size: 1.5rem;
 }
 
 .nav-content .nav-list .item .links-name {
-  font-size: 1rem;
+  font-size: 1.2rem;
   font-weight: 300;
 }
 
 .sidebar.active .nav-list .item .links-name {
   display: none;
+}
+
+.sidebar.active .nav-content .nav-list .item i {
+  font-size: 2rem;
 }
 
 /* PROFILE STYLES */
@@ -211,11 +227,14 @@ const toggleSidebar = () => {
   display: none;
 }
 
-.profile-content .profile .profile-details img {
+.profile-content .profile .profile-details i {
   width: 45px;
   height: 45px;
-  object-fit: cover;
+  /* object-fit: cover; */
   border-radius: 1rem;
+  font-size: 2rem;
+  display: flex;
+  align-items: center;
 }
 .profile-content .profile .profile-details .name-job .name {
   font-size: 1rem;
@@ -230,5 +249,9 @@ const toggleSidebar = () => {
 .profile-content .profile #logout {
   font-size: 1.5rem;
   cursor: pointer;
+}
+
+.sidebar.active .profile-content .profile #logout {
+  font-size: 2rem;
 }
 </style>
