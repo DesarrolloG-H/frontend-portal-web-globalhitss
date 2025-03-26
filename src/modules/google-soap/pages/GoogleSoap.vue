@@ -18,7 +18,7 @@
         </select>
       </div>
 
-      <div class="select-content">
+      <div v-if="selectedGroup !== 'Mesa Agil'" class="select-content">
         <span class="subtitle-options">Equipo</span>
         <select v-model="selectedSubteam" class="filter-select" :disabled="!selectedGroup">
           <option value="">Todos los subequipos</option>
@@ -30,7 +30,7 @@
 
       <div class="select-content">
         <span class="subtitle-options">Documento</span>
-        <select v-model="selectedTypeDocument" class="filter-select" :disabled="!selectedSubteam">
+        <select v-model="selectedTypeDocument" class="filter-select" :disabled="!isDocumentEnabled">
           <option value="">Todos los documentos</option>
           <option v-for="doc in filteredTypeDocuments" :key="doc" :value="doc">
             {{ doc }}
@@ -109,7 +109,10 @@ const applyFilters = () => {
       ? row.nombreDocumento.toLowerCase().includes(searchTerm.value.toLowerCase())
       : true
     const matchesGroup = selectedGroup.value ? row.grupo === selectedGroup.value : true
-    const matchesSubteam = selectedSubteam.value ? row.equipo === selectedSubteam.value : true
+    const matchesSubteam =
+      selectedGroup.value === 'Mesa Agil' || selectedSubteam.value
+        ? row.equipo === selectedSubteam.value || row.equipo === 'no tiene equipo'
+        : true
     const matchesTypeDocument = selectedTypeDocument.value
       ? row.tipoDocumento === selectedTypeDocument.value
       : true
@@ -126,7 +129,7 @@ const uniqueGroups = computed(() => [...new Set(rows.value.map((row) => row.grup
 
 // 📌 Filtrar subequipos según el grupo seleccionado
 const filteredSubteams = computed(() => {
-  if (!selectedGroup.value) return []
+  if (!selectedGroup.value || selectedGroup.value === 'Mesa Agil') return []
   return [
     ...new Set(
       rows.value.filter((row) => row.grupo === selectedGroup.value).map((row) => row.equipo),
@@ -136,19 +139,24 @@ const filteredSubteams = computed(() => {
 
 // 📌 Filtrar tipos de documentos según el subequipo seleccionado
 const filteredTypeDocuments = computed(() => {
-  if (!selectedSubteam.value) return []
+  if (!isDocumentEnabled.value) return []
   return [
     ...new Set(
       rows.value
-        .filter((row) => row.equipo === selectedSubteam.value)
+        .filter((row) => row.equipo === selectedSubteam.value || row.equipo === 'no tiene equipo')
         .map((row) => row.tipoDocumento),
     ),
   ]
 })
 
+// 📌 Habilitar Documento solo si hay un subequipo seleccionado o si Grupo es Mesa Agil
+const isDocumentEnabled = computed(
+  () => selectedGroup.value === 'Mesa Agil' || selectedSubteam.value,
+)
+
 // 📌 Resetear filtros dependientes
-watch(selectedGroup, () => {
-  selectedSubteam.value = ''
+watch(selectedGroup, (newValue) => {
+  selectedSubteam.value = newValue === 'Mesa Agil' ? 'no tiene equipo' : ''
   selectedTypeDocument.value = ''
 })
 
