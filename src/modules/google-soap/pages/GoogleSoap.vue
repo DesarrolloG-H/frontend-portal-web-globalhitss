@@ -87,7 +87,9 @@ const selectedTypeDocument = ref('')
 // 📌 Obtener datos del backend
 const fetchData = async () => {
   try {
-    const response = await axios.get('http://localhost:3000/api/files')
+    const response = await axios.get(
+      'https://backend-portal-web-globalhitss.onrender.com/api/files',
+    )
 
     rows.value = response.data.map((item) => ({
       nombreDocumento: item.Nombre_Documento,
