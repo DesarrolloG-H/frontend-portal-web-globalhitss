@@ -18,7 +18,7 @@
         </select>
       </div>
 
-      <div v-if="selectedGroup !== 'Mesa Agil'" class="select-content">
+      <div class="select-content">
         <span class="subtitle-options">Equipo</span>
         <select v-model="selectedSubteam" class="filter-select" :disabled="!selectedGroup">
           <option value="">Todos los subequipos</option>
@@ -30,7 +30,7 @@
 
       <div class="select-content">
         <span class="subtitle-options">Documento</span>
-        <select v-model="selectedTypeDocument" class="filter-select" :disabled="!isDocumentEnabled">
+        <select v-model="selectedTypeDocument" class="filter-select" :disabled="!selectedSubteam">
           <option value="">Todos los documentos</option>
           <option v-for="doc in filteredTypeDocuments" :key="doc" :value="doc">
             {{ doc }}
@@ -87,9 +87,8 @@ const selectedTypeDocument = ref('')
 // 📌 Obtener datos del backend
 const fetchData = async () => {
   try {
-    const response = await axios.get(
-      'https://backend-portal-web-globalhitss.onrender.com/api/files',
-    )
+    const response = await axios.get('http://localhost:3000/api/files')
+
     rows.value = response.data.map((item) => ({
       nombreDocumento: item.Nombre_Documento,
       grupo: item.Grupo,
@@ -104,20 +103,18 @@ const fetchData = async () => {
   }
 }
 
-// 📌 Aplicar filtros y resetear paginación
+// // 📌 Aplicar filtros y resetear paginación
 const applyFilters = () => {
   filteredRows.value = rows.value.filter((row) => {
     const matchesSearch = searchTerm.value
       ? row.nombreDocumento.toLowerCase().includes(searchTerm.value.toLowerCase())
       : true
     const matchesGroup = selectedGroup.value ? row.grupo === selectedGroup.value : true
-    const matchesSubteam =
-      selectedGroup.value === 'Mesa Agil' || selectedSubteam.value
-        ? row.equipo === selectedSubteam.value || row.equipo === 'no tiene equipo'
-        : true
+    const matchesSubteam = selectedSubteam.value ? row.equipo === selectedSubteam.value : true
     const matchesTypeDocument = selectedTypeDocument.value
-      ? row.tipoDocumento === selectedTypeDocument.value
+      ? row.tipoDocumento.toLowerCase().trim() === selectedTypeDocument.value.toLowerCase().trim()
       : true
+
     return matchesSearch && matchesGroup && matchesSubteam && matchesTypeDocument
   })
 
@@ -131,34 +128,34 @@ const uniqueGroups = computed(() => [...new Set(rows.value.map((row) => row.grup
 
 // 📌 Filtrar subequipos según el grupo seleccionado
 const filteredSubteams = computed(() => {
-  if (!selectedGroup.value || selectedGroup.value === 'Mesa Agil') return []
+  if (!selectedGroup.value) return []
   return [
     ...new Set(
       rows.value.filter((row) => row.grupo === selectedGroup.value).map((row) => row.equipo),
     ),
   ]
 })
-
-// 📌 Filtrar tipos de documentos según el subequipo seleccionado
+// 📌 Filtrar Tipo de Documentos según el grupo y equipo seleccionado
 const filteredTypeDocuments = computed(() => {
-  if (!isDocumentEnabled.value) return []
-  return [
+  if (!selectedGroup.value || !selectedSubteam.value) return []
+
+  const tipos = [
     ...new Set(
       rows.value
-        .filter((row) => row.equipo === selectedSubteam.value || row.equipo === 'no tiene equipo')
+        .filter(
+          (row) =>
+            row.grupo.trim() === selectedGroup.value.trim() && // Asegurar que el grupo coincida
+            row.equipo.trim() === selectedSubteam.value.trim(), // Asegurar que el equipo coincida
+        )
         .map((row) => row.tipoDocumento),
     ),
   ]
+  return tipos
 })
 
-// 📌 Habilitar Documento solo si hay un subequipo seleccionado o si Grupo es Mesa Agil
-const isDocumentEnabled = computed(
-  () => selectedGroup.value === 'Mesa Agil' || selectedSubteam.value,
-)
-
 // 📌 Resetear filtros dependientes
-watch(selectedGroup, (newValue) => {
-  selectedSubteam.value = newValue === 'Mesa Agil' ? 'no tiene equipo' : ''
+watch(selectedGroup, () => {
+  selectedSubteam.value = ''
   selectedTypeDocument.value = ''
 })
 
