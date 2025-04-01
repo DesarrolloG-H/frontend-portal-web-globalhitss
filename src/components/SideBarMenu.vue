@@ -45,10 +45,31 @@
 </template>
 
 <script setup>
-import { ref } from 'vue'
+import { ref, onMounted, onUnmounted, watchEffect } from 'vue'
 
 // Estado reactivo del sidebar
 const isSidebarActive = ref(false)
+
+// Función para actualizar el estado según el tamaño de la pantalla
+const updateSidebarState = () => {
+  isSidebarActive.value = window.innerWidth < 1240
+}
+
+// Detectar cambios en el tamaño de la pantalla automáticamente
+watchEffect(() => {
+  updateSidebarState()
+})
+
+// Agregar y remover event listeners cuando el componente se monta/desmonta
+onMounted(() => {
+  window.addEventListener('resize', updateSidebarState)
+})
+
+onUnmounted(() => {
+  window.removeEventListener('resize', updateSidebarState)
+})
+
+// Alternar manualmente el sidebar con un clic
 const toggleSidebar = () => {
   isSidebarActive.value = !isSidebarActive.value
 }

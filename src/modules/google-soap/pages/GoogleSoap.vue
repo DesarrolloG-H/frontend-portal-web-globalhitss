@@ -37,8 +37,9 @@
           </option>
         </select>
       </div>
-
-      <button class="btn-search" @click="applyFilters">Buscar</button>
+      <div class="content-btn-search">
+        <button class="btn-search" @click="applyFilters">Buscar</button>
+      </div>
     </div>
 
     <div class="capsule">
@@ -87,9 +88,8 @@ const selectedTypeDocument = ref('')
 // 📌 Obtener datos del backend
 const fetchData = async () => {
   try {
-    const response = await axios.get(
-      'https://backend-portal-web-globalhitss.onrender.com/api/files',
-    )
+    const API_URL = import.meta.env.VITE_API_URL
+    const response = await axios.get(`${API_URL}/api/files`)
 
     rows.value = response.data.map((item) => ({
       nombreDocumento: item.Nombre_Documento,
@@ -175,7 +175,7 @@ const columns = ref([
   { label: 'Grupo', field: 'grupo' },
   { label: 'Equipo', field: 'equipo' },
   { label: 'Tipo Documento', field: 'tipoDocumento' },
-  { label: 'Equipo Mesa Agil', field: 'equipoMesaAgil' },
+  // { label: 'Equipo Mesa Agil', field: 'equipoMesaAgil' },
   { label: 'Nombre Documento', field: 'nombreDocumento' },
   { label: 'Ruta de acceso', field: 'Ruta_archivo' },
 ])
@@ -263,5 +263,38 @@ h2 {
 
 .vgt-wrap {
   flex: 1;
+}
+
+/* Estilos tabla registros */
+::v-deep(.vgt-table td) {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 100px;
+  font-size: 1rem;
+}
+
+/* Estilos tabla Encabezados */
+::v-deep(.vgt-table thead th) {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 40px;
+}
+
+@media (max-width: 1240px) {
+  .capsule:first-of-type {
+    /* border: 1px solid red; */
+    flex-direction: column;
+    align-items: normal;
+  }
+  .content-btn-search {
+    display: flex;
+    justify-content: center;
+  }
+  .btn-search {
+    /* border: 1px solid red; */
+    inline-size: 200px;
+  }
 }
 </style>

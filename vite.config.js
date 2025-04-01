@@ -4,15 +4,16 @@ import { defineConfig } from 'vite'
 import vue from '@vitejs/plugin-vue'
 import vueDevTools from 'vite-plugin-vue-devtools'
 
-// https://vite.dev/config/
 export default defineConfig({
-  plugins: [
-    vue(),
-    vueDevTools(),
-  ],
+  plugins: [vue(), vueDevTools()],
   resolve: {
     alias: {
-      '@': fileURLToPath(new URL('./src', import.meta.url))
+      '@': fileURLToPath(new URL('./src', import.meta.url)),
     },
+  },
+  server: {
+    host: true, // Permite acceso desde otras máquinas
+    port: 5173, // Puerto en el que corre Vite
+    strictPort: true, // Asegura que use exactamente este puerto
   },
 })
