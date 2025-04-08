@@ -10,7 +10,7 @@
 
 <script setup>
 import SidebarMenu from '@/components/SideBarMenu.vue'
-import GoogleSoap from '../modules/google-soap/pages/GoogleSoap.vue'
+import GoogleSoap from '../modules/soap-search/pages/SoapSearch.vue'
 </script>
 
 <style scoped>
