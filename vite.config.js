@@ -13,7 +13,7 @@ export default defineConfig({
   },
   server: {
     host: true, // Permite acceso desde otras máquinas
-    port: 5173, // Puerto en el que corre Vite
+    port: 5174, // Puerto en el que corre Vite
     strictPort: true, // Asegura que use exactamente este puerto
   },
 })

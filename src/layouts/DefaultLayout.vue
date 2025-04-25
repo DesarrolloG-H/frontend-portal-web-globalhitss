@@ -4,13 +4,15 @@
     <SidebarMenu class="layout-sidebar" />
 
     <!-- Contenido dinámico -->
-    <GoogleSoap class="layout-content" />
+    <!-- <GoogleSoap class="layout-content" /> -->
+    <FormInc class="layout-content" />
   </div>
 </template>
 
 <script setup>
 import SidebarMenu from '@/components/SideBarMenu.vue'
-import GoogleSoap from '../modules/soap-search/pages/SoapSearch.vue'
+// import GoogleSoap from '../modules/soap-search/pages/SoapSearch.vue'
+import FormInc from '../modules/control-incidencias/pages/FormInc.vue'
 </script>
 
 <style scoped>
