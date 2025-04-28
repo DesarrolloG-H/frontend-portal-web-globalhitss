@@ -4,8 +4,8 @@
     <SidebarMenu class="layout-sidebar" />
 
     <!-- Contenido dinámico -->
-    <GoogleSoap class="layout-content" />
-    <!-- <FormInc class="layout-content" /> -->
+    <!-- <GoogleSoap class="layout-content" /> -->
+    <FormInc class="layout-content" />
   </div>
 </template>
 

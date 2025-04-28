@@ -10,10 +10,9 @@
         label="Tipo Afectación"
         v-model="form.tipoAfectacion"
         :options="[
-          { value: '1', label: 'Tipo 1' },
-          { value: '2', label: 'Tipo 2' },
-          { value: '3', label: 'Tipo 3' },
-          { value: '4', label: 'Tipo 4' },
+          { value: '1', label: 'Informativo' },
+          { value: '2', label: 'Parcial' },
+          { value: '3', label: 'Total' },
         ]"
       />
     </div>

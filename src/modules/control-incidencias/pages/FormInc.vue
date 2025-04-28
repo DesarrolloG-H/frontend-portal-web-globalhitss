@@ -3,9 +3,20 @@
     <h2>Formulario INC</h2>
     <form class="formulario" action="">
       <DatosGenerales />
+
+      <!-- Checkboxes para seleccionar secciones -->
+      <div class="checkbox-group">
+        <label><input type="checkbox" v-model="mostrar.baseDatos" /> Base de Datos</label>
+        <label><input type="checkbox" v-model="mostrar.nodos" /> Nodos</label>
+        <label><input type="checkbox" v-model="mostrar.servicios" /> Servicios</label>
+        <label><input type="checkbox" v-model="mostrar.balanceador" /> Balanceador</label>
+        <label><input type="checkbox" v-model="mostrar.servidor" /> Servidor</label>
+        <label><input type="checkbox" v-model="mostrar.causaRca" /> Causa RCA</label>
+      </div>
       <div class="group-base">
-        <BaseDatos />
+        <BaseDatos v-show="mostrar.baseDatos" />
         <ServiciosRed
+          v-show="mostrar.nodos"
           title="Nodos"
           :fields="[
             [
@@ -24,6 +35,7 @@
           ]"
         />
         <ServiciosRed
+          v-show="mostrar.servicios"
           title="Servicios"
           :fields="[
             [
@@ -52,6 +64,7 @@
           ]"
         />
         <ServiciosRed
+          v-show="mostrar.balanceador"
           title="Balanceador"
           :fields="[
             [
@@ -85,6 +98,7 @@
           ]"
         />
         <ServiciosRed
+          v-show="mostrar.servidor"
           title="Servidor"
           :fields="[
             [
@@ -117,7 +131,7 @@
             ],
           ]"
         />
-        <CausaRca />
+        <CausaRca v-show="mostrar.causaRca" />
       </div>
       <TransaccionRed />
       <GestionEventos />
@@ -128,6 +142,7 @@
 </template>
 
 <script setup>
+import { reactive } from 'vue'
 import DatosGenerales from '../components/secciones/DatosGenerales.vue'
 import BaseDatos from '../components/secciones/BaseDatos.vue'
 import ServiciosRed from '../components/secciones/ServiciosRed.vue'
@@ -135,6 +150,16 @@ import CausaRca from '../components/secciones/CausaRca.vue'
 import TransaccionRed from '../components/secciones/TransaccionRed.vue'
 import GestionEventos from '../components/secciones/GestionEventos.vue'
 import DatosExtra from '../components/secciones/DatosExtra.vue'
+
+// Reactive para controlar qué secciones mostrar
+const mostrar = reactive({
+  baseDatos: false,
+  nodos: false,
+  servicios: false,
+  balanceador: false,
+  servidor: false,
+  causaRca: false,
+})
 </script>
 
 <style scoped>
@@ -148,5 +173,13 @@ h2 {
   display: flex;
   flex-wrap: wrap;
   gap: 1rem;
+}
+
+.checkbox-group {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  margin-bottom: 2rem;
+  padding-inline-start: 1rem;
 }
 </style>
