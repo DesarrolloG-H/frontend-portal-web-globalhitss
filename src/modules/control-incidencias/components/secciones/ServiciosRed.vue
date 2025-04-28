@@ -1,5 +1,5 @@
 <template>
-  <CapsuleSection :title="title">
+  <CapsuleSection class="capsule-service" :title="title">
     <div v-for="(group, groupIndex) in fields" :key="groupIndex" class="group-input">
       <InputForm
         v-for="(input, index) in group"
@@ -44,5 +44,10 @@ props.fields.flat().forEach((input) => {
   align-items: center;
   padding: 0.5rem;
   flex-wrap: wrap;
+}
+
+.capsule-service {
+  min-inline-size: 46%;
+  flex: 1;
 }
 </style>

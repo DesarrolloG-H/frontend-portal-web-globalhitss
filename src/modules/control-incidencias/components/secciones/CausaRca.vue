@@ -1,5 +1,5 @@
 <template>
-  <CapsuleSection title="Causa y RCA">
+  <CapsuleSection class="section-rca" title="Causa y RCA">
     <BaseTextarea
       label="¿Cuál fue el origen del evento?"
       v-model="form.origen"
@@ -39,5 +39,10 @@ const form = ref({
   justify-content: space-between;
   align-items: center;
   padding: 0.5rem;
+}
+
+.section-rca {
+  min-inline-size: 46%;
+  flex: 1;
 }
 </style>

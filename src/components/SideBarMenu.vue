@@ -7,13 +7,13 @@
       </div>
     </div>
     <ul class="nav-content">
-      <li class="nav-list">
+      <!-- <li class="nav-list">
         <a class="item" href="#">
           <i class="bx bx-grid-alt"></i>
           <span class="links-name">Dashboard</span>
         </a>
         <span class="tooltip">Dashboard</span>
-      </li>
+      </li> -->
       <li class="nav-list">
         <a class="item" href="#">
           <i class="bx bx-file-find"></i>
@@ -21,21 +21,21 @@
         </a>
         <span class="tooltip">Operativas</span>
       </li>
-      <li class="nav-list">
+      <!-- <li class="nav-list">
         <a class="item" href="#">
           <i class="bx bxs-comment-error"></i>
           <span class="links-name">Incidencias</span>
         </a>
         <span class="tooltip">Incidencias</span>
-      </li>
+      </li> -->
     </ul>
     <div class="profile-content">
       <div class="profile">
         <div class="profile-details">
           <i class="bx bxs-user"></i>
           <div class="name-job">
-            <div class="name">Jean Pool</div>
-            <div class="job">GCME</div>
+            <div class="name">Analista</div>
+            <div class="job">Soap</div>
           </div>
         </div>
         <i class="bx bx-log-out" id="logout"></i>

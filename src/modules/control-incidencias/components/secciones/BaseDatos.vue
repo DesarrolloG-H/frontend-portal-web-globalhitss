@@ -1,5 +1,5 @@
 <template>
-  <CapsuleSection title="Base Datos">
+  <CapsuleSection class="capsule-bd" title="Base Datos">
     <div class="group-input">
       <InputForm label="Nombre" type="text" placeholder="Nombre" v-model="form.nodo" />
     </div>
@@ -29,5 +29,9 @@ const form = ref({
   justify-content: space-between;
   align-items: center;
   padding: 0.5rem;
+}
+.capsule-bd {
+  min-inline-size: 46%;
+  flex: 1;
 }
 </style>

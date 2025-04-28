@@ -20,6 +20,7 @@ defineProps({
   background-color: #fff;
   box-shadow: 0 5px 10px rgba(18, 18, 18, 0.2);
   margin-bottom: 2rem;
+  /* flex: 1; */
 }
 
 .capsule-title {
