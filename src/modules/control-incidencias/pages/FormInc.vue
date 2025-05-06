@@ -1,7 +1,7 @@
 <template>
   <div class="container-datos-generales">
     <h2>Formulario INC</h2>
-    <form class="formulario" action="">
+    <form @submit.prevent="guardar" novalidate class="formulario" action="">
       <DatosGenerales />
 
       <!-- Checkboxes para seleccionar secciones -->
@@ -33,6 +33,7 @@
               { label: 'Hora Fin', type: 'time', placeholder: 'Hora Fin', model: 'horaFinNodo' },
             ],
           ]"
+          :camposAUsar="['nodo', 'ipNodo']"
         />
         <ServiciosRed
           v-show="mostrar.servicios"
@@ -62,6 +63,7 @@
               },
             ],
           ]"
+          :camposAUsar="['servicio', 'nombreServicio']"
         />
         <ServiciosRed
           v-show="mostrar.balanceador"
@@ -96,6 +98,7 @@
               },
             ],
           ]"
+          :camposAUsar="['balanceador', 'nombreBalanceador']"
         />
         <ServiciosRed
           v-show="mostrar.servidor"
@@ -130,6 +133,7 @@
               },
             ],
           ]"
+          :camposAUsar="['servidor', 'nombreServidor']"
         />
         <CausaRca v-show="mostrar.causaRca" />
       </div>
@@ -150,7 +154,15 @@ import CausaRca from '../components/secciones/CausaRca.vue'
 import TransaccionRed from '../components/secciones/TransaccionRed.vue'
 import GestionEventos from '../components/secciones/GestionEventos.vue'
 import DatosExtra from '../components/secciones/DatosExtra.vue'
+// import { useDatabaseList } from '../composables/useControlInc'
 
+// const {
+//   // agregarBD,
+//   agregarNodo,
+//   agregarServicio,
+//   agregarBalanceador,
+//   agregarServidor,
+// } = useDatabaseList()
 // Reactive para controlar qué secciones mostrar
 const mostrar = reactive({
   baseDatos: false,

@@ -9,7 +9,7 @@
       <InputCheck label="Aplica RCA" v-model="form.aplicaRCA" />
       <InputForm
         label="Responsable RCA"
-        placeholder="Analista Responsable"
+        placeholder="Entidad Responsable"
         v-model="form.responsable"
       />
     </div>

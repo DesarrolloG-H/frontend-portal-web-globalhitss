@@ -9,6 +9,14 @@
         :placeholder="input.placeholder"
         v-model="form[input.model]"
       />
+      <!-- Mostrar botón solo después del PRIMER grupo -->
+      <ButtonSave
+        v-if="groupIndex === 0"
+        :agregar="agregar"
+        :form="form"
+        :camposAUsar="camposAUsar"
+      />
+      <ListRegisterMulti v-if="groupIndex === 0" :list="list" :eliminar="eliminar" />
     </div>
   </CapsuleSection>
 </template>
@@ -17,6 +25,10 @@
 import { reactive } from 'vue'
 import CapsuleSection from '@/modules/control-incidencias/components/base/CapsuleSection.vue'
 import InputForm from '@/modules/control-incidencias/components/base/InputForm.vue'
+import ButtonSave from '../base/ButtonSave.vue'
+import { useDatabaseList } from '../../composables/useControlInc'
+import ListRegisterMulti from '../base/ListRegisterMulti.vue'
+const { list, agregar, eliminar } = useDatabaseList()
 
 // Props sin TypeScript
 const props = defineProps({
@@ -25,6 +37,14 @@ const props = defineProps({
     type: Array,
     required: true,
   },
+  camposAUsar: {
+    type: Array,
+    required: true,
+  },
+  // agregar: {
+  //   type: Function,
+  //   required: true,
+  // },
 })
 
 // Crear objeto reactivo para almacenar los datos de los campos
@@ -44,6 +64,11 @@ props.fields.flat().forEach((input) => {
   align-items: center;
   padding: 0.5rem;
   flex-wrap: wrap;
+}
+
+.group-input :deep(.btn-save),
+.group-input :deep(.list-register) {
+  flex-basis: 100%; /* ocupa toda la fila */
 }
 
 .capsule-service {
