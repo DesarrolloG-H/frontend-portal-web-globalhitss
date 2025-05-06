@@ -15,10 +15,10 @@
         <span class="tooltip">Dashboard</span>
       </li> -->
       <li class="nav-list">
-        <a class="item" href="#">
+        <router-link class="item" to="/SoapSearch">
           <i class="bx bx-file-find"></i>
           <span class="links-name">Operativas</span>
-        </a>
+        </router-link>
         <span class="tooltip">Operativas</span>
       </li>
       <!-- <li class="nav-list">

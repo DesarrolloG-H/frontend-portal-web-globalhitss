@@ -1,18 +1,21 @@
 import { createRouter, createWebHistory } from 'vue-router'
-import DefaultLayout from '@/layouts/DefaultLayout.vue'
-import HomeView from '@/modules/home/pages/HomeView.vue'
-import OperativasView from '@/modules/operativas/pages/OperativasView.vue'
-import FormularioView from '@/modules/formulario/pages/FormularioView.vue'
+import SoapSearch from '../modules/soap-search/pages/SoapSearch.vue'
+import FormInc from '../modules/control-incidencias/pages/FormInc.vue'
 
 const routes = [
   {
     path: '/',
-    component: DefaultLayout, // Layout principal
-    children: [
-      { path: '', component: HomeView },
-      { path: 'operativas', component: OperativasView },
-      { path: 'formulario', component: FormularioView },
-    ],
+    redirect: '/google-soap',
+  },
+  {
+    path: '/SoapSearch',
+    name: 'SoapSearch',
+    component: SoapSearch,
+  },
+  {
+    path: '/formInc',
+    name: 'FormINC',
+    component: FormInc,
   },
 ]
 
