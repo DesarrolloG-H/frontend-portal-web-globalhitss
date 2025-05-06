@@ -5,7 +5,7 @@ import FormInc from '../modules/control-incidencias/pages/FormInc.vue'
 const routes = [
   {
     path: '/',
-    redirect: '/google-soap',
+    redirect: '/SoapSearch',
   },
   {
     path: '/SoapSearch',
