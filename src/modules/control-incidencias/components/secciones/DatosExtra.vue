@@ -1,31 +1,19 @@
 <template>
   <CapsuleSection title="Datos Extra">
     <div class="group-input">
-      <BaseTextarea
-        label="Acciones Realizadas"
-        v-model="form.impacto"
-        placeholder="Escriba un resumen del incidente"
-      />
       <InputForm label="Cantidad de Tickets" type="number" placeholder="1" v-model="form.semana" />
-    </div>
-    <div class="group-input">
-      <InputForm
-        label="Cantidad de Tickets impactados a Hitss"
-        type="number"
-        placeholder="1"
-        v-model="form.semana"
-      />
-      <InputForm
-        label="Lecciones Aprendidas"
-        placeholder="Elije tu aplicación"
-        v-model="form.aplicacion"
-      />
-    </div>
-    <div class="group-input">
-      <InputForm
+
+      <SelectForm
         label="Analista Registro"
-        placeholder="Elije tu transacción afectada"
-        v-model="form.transaccionAfectada"
+        v-model="form.analistaRegistro"
+        :options="[
+          { value: '1', label: 'Walter Arizaca Arizabal' },
+          { value: '2', label: 'Jesus Antonio Alvarado Garcia' },
+          { value: '3', label: 'Gregory  Anthony Sanchez Valencia' },
+          { value: '4', label: 'Eduardo Piero Leandro Pretel' },
+          { value: '5', label: 'Carlos Huarcaya Sarmiento' },
+          { value: '6', label: 'Alonso Muñoz Perez' },
+        ]"
       />
     </div>
   </CapsuleSection>
@@ -34,15 +22,12 @@
 <script setup>
 import CapsuleSection from '@/modules/control-incidencias/components/base/CapsuleSection.vue'
 import InputForm from '../base/InputForm.vue'
-import BaseTextarea from '@/modules/control-incidencias/components/base/TextareaForm.vue'
+import SelectForm from '../base/SelectForm.vue'
+
 import { ref } from 'vue'
 const form = ref({
-  transaccion: '',
-  tipoTransaccion: '',
-  plataformaAfectada: '',
-  aplicacion: '',
-  transaccionAfectada: '',
-  torreImpactada: '',
+  cantidadTickets: '',
+  analistaRegistro: '',
 })
 </script>
 
