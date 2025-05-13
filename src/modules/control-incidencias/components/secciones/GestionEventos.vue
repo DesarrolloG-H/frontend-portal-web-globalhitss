@@ -3,12 +3,12 @@
     <div class="group-input">
       <BaseTextarea
         label="Acciones Realizadas"
-        v-model="form.impacto"
+        v-model="form.accionesRealizadas"
         placeholder="Escriba un resumen del incidente"
       />
       <BaseTextarea
         label="Solución"
-        v-model="form.impacto"
+        v-model="form.solucion"
         placeholder="Escriba un resumen del incidente"
       />
     </div>
@@ -16,7 +16,7 @@
       <InputForm
         label="Lecciones Aprendidas"
         placeholder="Elije tu aplicación"
-        v-model="form.aplicacion"
+        v-model="form.leccionesAprendidas"
       />
     </div>
   </CapsuleSection>
@@ -28,12 +28,9 @@ import InputForm from '../base/InputForm.vue'
 import BaseTextarea from '@/modules/control-incidencias/components/base/TextareaForm.vue'
 import { ref } from 'vue'
 const form = ref({
-  transaccion: '',
-  tipoTransaccion: '',
-  plataformaAfectada: '',
-  aplicacion: '',
-  transaccionAfectada: '',
-  torreImpactada: '',
+  accionesRealizadas: '',
+  solucion: '',
+  leccionesAprendidas: '',
 })
 </script>
 

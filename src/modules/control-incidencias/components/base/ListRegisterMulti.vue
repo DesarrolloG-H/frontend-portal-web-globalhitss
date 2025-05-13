@@ -19,22 +19,34 @@ defineProps({
   eliminar: Function,
 })
 
+// function obtenerValores(item) {
+//   if (typeof item === 'object' && item !== null) {
+//     if ('nodo' in item && 'ipNodo' in item) {
+//       return [item.nodo, item.ipNodo]
+//     }
+//     if ('servicio' in item && 'nombreServicio' in item) {
+//       return [item.servicio, item.nombreServicio]
+//     }
+//     if ('balanceador' in item && 'nombreBalanceador' in item) {
+//       return [item.balanceador, item.nombreBalanceador]
+//     }
+//     if ('servidor' in item && 'nombreServidor' in item) {
+//       return [item.servidor, item.nombreServidor]
+//     }
+//     // Si no entra en ningún caso, mostrar todos los valores:
+//     return Object.values(item)
+//   }
+//   return [String(item)]
+// }
+
 function obtenerValores(item) {
   if (typeof item === 'object' && item !== null) {
-    if ('nodo' in item && 'ipNodo' in item) {
-      return [item.nodo, item.ipNodo]
-    }
-    if ('servicio' in item && 'nombreServicio' in item) {
-      return [item.servicio, item.nombreServicio]
-    }
-    if ('balanceador' in item && 'nombreBalanceador' in item) {
-      return [item.balanceador, item.nombreBalanceador]
-    }
-    if ('servidor' in item && 'nombreServidor' in item) {
-      return [item.servidor, item.nombreServidor]
-    }
-    // Si no entra en ningún caso, mostrar todos los valores:
-    return Object.values(item)
+    return Object.values(item).map((valor) => {
+      if (typeof valor === 'object' && valor !== null) {
+        return valor.nombre || valor.label || JSON.stringify(valor)
+      }
+      return valor
+    })
   }
   return [String(item)]
 }

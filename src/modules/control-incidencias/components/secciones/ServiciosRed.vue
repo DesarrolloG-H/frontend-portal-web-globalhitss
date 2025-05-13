@@ -15,6 +15,7 @@
         :agregar="agregar"
         :form="form"
         :camposAUsar="camposAUsar"
+        :onReset="resetForm"
       />
       <ListRegisterMulti v-if="groupIndex === 0" :list="list" :eliminar="eliminar" />
     </div>
@@ -25,8 +26,8 @@
 import { reactive } from 'vue'
 import CapsuleSection from '@/modules/control-incidencias/components/base/CapsuleSection.vue'
 import InputForm from '@/modules/control-incidencias/components/base/InputForm.vue'
-import ButtonSave from '../base/ButtonSave.vue'
 import { useDatabaseList } from '../../composables/useControlInc'
+import ButtonSave from '../base/ButtonSave.vue'
 import ListRegisterMulti from '../base/ListRegisterMulti.vue'
 const { list, agregar, eliminar } = useDatabaseList()
 
@@ -54,6 +55,13 @@ const form = reactive({})
 props.fields.flat().forEach((input) => {
   form[input.model] = ''
 })
+
+const resetForm = () => {
+  props.camposAUsar.forEach((campo) => {
+    const valor = form[campo]
+    form[campo] = typeof valor === 'object' && valor !== null ? null : ''
+  })
+}
 </script>
 
 <style scoped>

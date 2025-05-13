@@ -23,7 +23,7 @@ defineProps({
 
 function mostrarValor(item) {
   if (typeof item === 'object' && item !== null) {
-    if ('bd' in item) return item.bd
+    if ('bd' in item && typeof item.bd === 'object') return item.bd.nombre
     return JSON.stringify(item)
   }
   return String(item)

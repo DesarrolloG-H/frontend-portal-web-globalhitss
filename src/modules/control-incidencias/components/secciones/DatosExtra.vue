@@ -6,14 +6,7 @@
       <SelectForm
         label="Analista Registro"
         v-model="form.analistaRegistro"
-        :options="[
-          { value: '1', label: 'Walter Arizaca Arizabal' },
-          { value: '2', label: 'Jesus Antonio Alvarado Garcia' },
-          { value: '3', label: 'Gregory  Anthony Sanchez Valencia' },
-          { value: '4', label: 'Eduardo Piero Leandro Pretel' },
-          { value: '5', label: 'Carlos Huarcaya Sarmiento' },
-          { value: '6', label: 'Alonso Muñoz Perez' },
-        ]"
+        :options="analistaOptions"
       />
     </div>
   </CapsuleSection>
@@ -23,12 +16,15 @@
 import CapsuleSection from '@/modules/control-incidencias/components/base/CapsuleSection.vue'
 import InputForm from '../base/InputForm.vue'
 import SelectForm from '../base/SelectForm.vue'
+import { useSelectOptions } from '../../composables/useSelectOptions'
 
 import { ref } from 'vue'
 const form = ref({
   cantidadTickets: '',
-  analistaRegistro: '',
+  analistaRegistro: null,
 })
+
+const { options: analistaOptions } = useSelectOptions('analistas')
 </script>
 
 <style scoped>

@@ -40,12 +40,17 @@
           title="Servicios"
           :fields="[
             [
-              { label: 'Servicio', type: 'text', placeholder: 'Servicio', model: 'servicio' },
               {
                 label: 'Nombre Servicio',
                 type: 'text',
                 placeholder: 'Nombre Servicio',
                 model: 'nombreServicio',
+              },
+              {
+                label: 'Ip Servicio',
+                type: 'text',
+                placeholder: 'Ip Servicio',
+                model: 'ipServicio',
               },
             ],
             [
@@ -63,7 +68,7 @@
               },
             ],
           ]"
-          :camposAUsar="['servicio', 'nombreServicio']"
+          :camposAUsar="['nombreServicio', 'ipServicio']"
         />
         <ServiciosRed
           v-show="mostrar.balanceador"

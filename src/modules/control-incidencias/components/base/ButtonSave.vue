@@ -11,6 +11,7 @@ const props = defineProps({
     type: Array,
     default: () => [], // ejemplo: ['nombreServicio', 'descripcionServicio']
   },
+  onReset: Function, // ✅ nueva prop para limpiar campos
 })
 // Desactivar si algún campo necesario está vacío
 const disabled = computed(() => {
@@ -24,6 +25,10 @@ const handleClick = () => {
     return obj
   }, {})
   props.agregar(datosFiltrados)
+
+  if (props.onReset) {
+    props.onReset()
+  }
 }
 </script>
 

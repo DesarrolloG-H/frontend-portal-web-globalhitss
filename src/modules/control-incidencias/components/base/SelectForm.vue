@@ -2,9 +2,9 @@
   <div class="base-select">
     <label v-if="label" :for="id" class="name-input">{{ label }}</label>
     <select :id="id" v-model="modelValueLocal" :disabled="disabled" class="select">
-      <option value="" disabled selected hidden>{{ placeholder }}</option>
-      <option v-for="(option, index) in options" :key="index" :value="option.value">
-        {{ option.label }}
+      <option value="null" disabled selected hidden>{{ placeholder }}</option>
+      <option v-for="(option, index) in options" :key="index" :value="option">
+        {{ option.nombre }}
       </option>
     </select>
   </div>
@@ -15,7 +15,7 @@ import { computed } from 'vue'
 
 // Props
 const props = defineProps({
-  modelValue: [String, Number],
+  modelValue: Object,
   label: String,
   id: String,
   options: {
@@ -28,7 +28,6 @@ const props = defineProps({
   },
   disabled: Boolean,
 })
-
 // Emits
 const emit = defineEmits(['update:modelValue'])
 

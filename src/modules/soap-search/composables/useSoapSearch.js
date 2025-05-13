@@ -11,9 +11,6 @@ export function useSoapSearch() {
   const selectedTypeDocument = ref('')
 
   const columns = ref([
-    // { label: 'Grupo', field: 'grupo' },
-    // { label: 'Equipo', field: 'equipo' },
-    // { label: 'Tipo Documento', field: 'tipoDocumento' },
     { label: 'Nombre Documento', field: 'nombreDocumento' },
     { label: 'Ruta de acceso', field: 'Ruta_archivo' },
   ])
@@ -21,7 +18,7 @@ export function useSoapSearch() {
   const fetchData = async () => {
     try {
       const API_URL = import.meta.env.VITE_API_URL
-      const response = await axios.get(`${API_URL}/api/files`)
+      const response = await axios.get(`${API_URL}/soapsearch/files`)
       rows.value = response.data.map((item) => ({
         nombreDocumento: item.Nombre_Documento,
         grupo: item.Grupo,

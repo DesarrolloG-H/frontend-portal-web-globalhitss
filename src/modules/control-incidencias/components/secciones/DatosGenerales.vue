@@ -9,11 +9,7 @@
       <SelectForm
         label="Tipo Afectación"
         v-model="form.tipoAfectacion"
-        :options="[
-          { value: '1', label: 'Informativo' },
-          { value: '2', label: 'Parcial' },
-          { value: '3', label: 'Total' },
-        ]"
+        :options="tipoAfectacionOptions"
       />
     </div>
     <div class="group-input">
@@ -37,16 +33,19 @@ import InputForm from '@/modules/control-incidencias/components/base/InputForm.v
 import SelectForm from '@/modules/control-incidencias/components/base/SelectForm.vue'
 import BaseTextarea from '@/modules/control-incidencias/components/base/TextareaForm.vue'
 import CapsuleSection from '@/modules/control-incidencias/components/base/CapsuleSection.vue'
+import { useSelectOptions } from '../../composables/useSelectOptions'
 import { ref } from 'vue'
 
 const form = ref({
   fecha: '',
   semana: '',
   ticket: '',
-  tipoAfectacion: '',
+  tipoAfectacion: null,
   resumen: '',
   impacto: '',
 })
+
+const { options: tipoAfectacionOptions } = useSelectOptions('tipo-afectacion')
 </script>
 
 <style scoped>
