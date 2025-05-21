@@ -3,12 +3,12 @@
     <div class="group-input">
       <BaseTextarea
         label="Acciones Realizadas"
-        v-model="form.accionesRealizadas"
+        v-model="gestionEventos.accionesRealizadas"
         placeholder="Escriba un resumen del incidente"
       />
       <BaseTextarea
         label="Solución"
-        v-model="form.solucion"
+        v-model="gestionEventos.solucion"
         placeholder="Escriba un resumen del incidente"
       />
     </div>
@@ -16,22 +16,21 @@
       <InputForm
         label="Lecciones Aprendidas"
         placeholder="Elije tu aplicación"
-        v-model="form.leccionesAprendidas"
+        v-model="gestionEventos.leccionesAprendidas"
       />
     </div>
   </CapsuleSection>
 </template>
 
 <script setup>
+import { storeToRefs } from 'pinia'
+import { useFormularioStore } from '@/modules/control-incidencias/stores/useFormularioStore'
 import CapsuleSection from '@/modules/control-incidencias/components/base/CapsuleSection.vue'
 import InputForm from '../base/InputForm.vue'
 import BaseTextarea from '@/modules/control-incidencias/components/base/TextareaForm.vue'
-import { ref } from 'vue'
-const form = ref({
-  accionesRealizadas: '',
-  solucion: '',
-  leccionesAprendidas: '',
-})
+
+const formulario = useFormularioStore()
+const { gestionEventos } = storeToRefs(formulario)
 </script>
 
 <style scoped>

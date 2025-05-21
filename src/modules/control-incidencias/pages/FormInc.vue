@@ -3,7 +3,6 @@
     <h2>Formulario INC</h2>
     <form @submit.prevent="guardar" novalidate class="formulario" action="">
       <DatosGenerales />
-
       <!-- Checkboxes para seleccionar secciones -->
       <div class="checkbox-group">
         <label><input type="checkbox" v-model="mostrar.baseDatos" /> Base de Datos</label>
@@ -18,26 +17,33 @@
         <ServiciosRed
           v-show="mostrar.nodos"
           title="Nodos"
+          tipo="nodo"
           :fields="[
             [
-              { label: 'Nodo', type: 'text', placeholder: 'Nodo', model: 'nodo' },
+              {
+                label: 'Nombre Nodo',
+                type: 'text',
+                placeholder: 'Nombre Nodo',
+                model: 'nombreNodo',
+              },
               { label: 'IP Nodo', type: 'text', placeholder: 'IP Nodo', model: 'ipNodo' },
             ],
-            [
-              {
-                label: 'Hora Inicio',
-                type: 'time',
-                placeholder: 'Hora Inicio',
-                model: 'horaInicioNodo',
-              },
-              { label: 'Hora Fin', type: 'time', placeholder: 'Hora Fin', model: 'horaFinNodo' },
-            ],
+            // [
+            //   {
+            //     label: 'Hora Inicio',
+            //     type: 'time',
+            //     placeholder: 'Hora Inicio',
+            //     model: 'horaInicioNodo',
+            //   },
+            //   { label: 'Hora Fin', type: 'time', placeholder: 'Hora Fin', model: 'horaFinNodo' },
+            // ],
           ]"
-          :camposAUsar="['nodo', 'ipNodo']"
+          :camposAUsar="['nombreNodo', 'ipNodo']"
         />
         <ServiciosRed
           v-show="mostrar.servicios"
           title="Servicios"
+          tipo="servicio"
           :fields="[
             [
               {
@@ -53,92 +59,94 @@
                 model: 'ipServicio',
               },
             ],
-            [
-              {
-                label: 'Hora Inicio',
-                type: 'time',
-                placeholder: 'Hora Inicio',
-                model: 'horaInicioServicio',
-              },
-              {
-                label: 'Hora Fin',
-                type: 'time',
-                placeholder: 'Hora Fin',
-                model: 'horaFinServicio',
-              },
-            ],
+            // [
+            //   {
+            //     label: 'Hora Inicio',
+            //     type: 'time',
+            //     placeholder: 'Hora Inicio',
+            //     model: 'horaInicioServicio',
+            //   },
+            //   {
+            //     label: 'Hora Fin',
+            //     type: 'time',
+            //     placeholder: 'Hora Fin',
+            //     model: 'horaFinServicio',
+            //   },
+            // ],
           ]"
           :camposAUsar="['nombreServicio', 'ipServicio']"
         />
         <ServiciosRed
           v-show="mostrar.balanceador"
-          title="Balanceador"
+          title="Balanceadores"
+          tipo="balanceador"
           :fields="[
             [
-              {
-                label: 'Balanceador',
-                type: 'text',
-                placeholder: 'Balanceador',
-                model: 'balanceador',
-              },
               {
                 label: 'Nombre Balanceador',
                 type: 'text',
                 placeholder: 'Nombre Balanceador',
                 model: 'nombreBalanceador',
               },
-            ],
-            [
               {
-                label: 'Hora Inicio',
-                type: 'time',
-                placeholder: 'Hora Inicio',
-                model: 'horaInicioBalanceador',
-              },
-              {
-                label: 'Hora Fin',
-                type: 'time',
-                placeholder: 'Hora Fin',
-                model: 'horaFinBalanceador',
+                label: 'Ip Balanceador',
+                type: 'text',
+                placeholder: 'Ip Balanceador',
+                model: 'ipBalanceador',
               },
             ],
+            // [
+            //   {
+            //     label: 'Hora Inicio',
+            //     type: 'time',
+            //     placeholder: 'Hora Inicio',
+            //     model: 'horaInicioBalanceador',
+            //   },
+            //   {
+            //     label: 'Hora Fin',
+            //     type: 'time',
+            //     placeholder: 'Hora Fin',
+            //     model: 'horaFinBalanceador',
+            //   },
+            // ],
           ]"
-          :camposAUsar="['balanceador', 'nombreBalanceador']"
+          :camposAUsar="['nombreBalanceador', 'ipBalanceador']"
         />
         <ServiciosRed
           v-show="mostrar.servidor"
           title="Servidor"
+          tipo="servidor"
           :fields="[
             [
-              {
-                label: 'Servidor',
-                type: 'text',
-                placeholder: 'Servidor',
-                model: 'servidor',
-              },
               {
                 label: 'Nombre Servidor',
                 type: 'text',
                 placeholder: 'Nombre Servidor',
                 model: 'nombreServidor',
               },
-            ],
-            [
               {
-                label: 'Hora Inicio',
-                type: 'time',
-                placeholder: 'Hora Inicio',
-                model: 'horaInicioServidor',
-              },
-              {
-                label: 'Hora Fin',
-                type: 'time',
-                placeholder: 'Hora Fin',
-                model: 'horaFinServidor',
+                label: 'Ip Servidor',
+                type: 'text',
+                placeholder: 'Ip Servidor',
+                model: 'ipServidor',
               },
             ],
+            // [
+            //   {
+            //     label: 'Hora Inicio',
+            //     type: 'time',
+            //     placeholder: 'Hora Inicio',
+            //     model: 'horaInicioServidor',
+            //   },
+            //   {
+            //     label: 'Hora Fin',
+            //     type: 'time',
+            //     placeholder: 'Hora Fin',
+            //     model: 'horaFinServidor',
+            //   },
+            // ],
           ]"
-          :camposAUsar="['servidor', 'nombreServidor']"
+          :camposAUsar="['nombreServidor', 'ipServidor']"
         />
         <CausaRca v-show="mostrar.causaRca" />
       </div>
@@ -151,6 +159,9 @@
 </template>
 
 <script setup>
+import { useFormularioStore } from '@/modules/control-incidencias/stores/useFormularioStore'
+import { validarTodoFormulario } from '@/modules/control-incidencias/validations/validarFormularioCompleto'
+import { generarPayload } from '@/modules/control-incidencias/utils/generarPayload'
 import { reactive } from 'vue'
 import DatosGenerales from '../components/secciones/DatosGenerales.vue'
 import BaseDatos from '../components/secciones/BaseDatos.vue'
@@ -159,15 +170,7 @@ import CausaRca from '../components/secciones/CausaRca.vue'
 import TransaccionRed from '../components/secciones/TransaccionRed.vue'
 import GestionEventos from '../components/secciones/GestionEventos.vue'
 import DatosExtra from '../components/secciones/DatosExtra.vue'
-// import { useDatabaseList } from '../composables/useControlInc'
 
-// const {
-//   // agregarBD,
-//   agregarNodo,
-//   agregarServicio,
-//   agregarBalanceador,
-//   agregarServidor,
-// } = useDatabaseList()
 // Reactive para controlar qué secciones mostrar
 const mostrar = reactive({
   baseDatos: false,
@@ -177,6 +180,25 @@ const mostrar = reactive({
   servidor: false,
   causaRca: false,
 })
+
+// PAYLOAD
+const formulario = useFormularioStore()
+
+const guardar = async () => {
+  const errores = validarTodoFormulario(formulario)
+  if (errores.length > 0) {
+    alert('Corrige los siguientes errores:\n' + errores.join('\n'))
+    return
+  }
+
+  const payload = generarPayload(formulario)
+
+  try {
+    console.log('✅ Formulario enviado correctamente:', payload)
+  } catch (error) {
+    console.error('❌ Error al enviar el formulario:', error)
+  }
+}
 </script>
 
 <style scoped>

@@ -12,6 +12,7 @@
       <!-- Mostrar botón solo después del PRIMER grupo -->
       <ButtonSave
         v-if="groupIndex === 0"
+        type="button"
         :agregar="agregar"
         :form="form"
         :camposAUsar="camposAUsar"
@@ -19,17 +20,23 @@
       />
       <ListRegisterMulti v-if="groupIndex === 0" :list="list" :eliminar="eliminar" />
     </div>
+    <!-- Inputs de hora globales por tipo -->
+    <div class="group-input" v-if="tipoConHoras.includes(tipo)">
+      <InputForm label="Hora Inicio" type="time" v-model="horaInicioGlobal" />
+      <InputForm label="Hora Fin" type="time" v-model="horaFinGlobal" />
+    </div>
   </CapsuleSection>
 </template>
 
 <script setup>
-import { reactive } from 'vue'
+import { computed } from 'vue'
+import { useFormularioStore } from '@/modules/control-incidencias/stores/useFormularioStore'
+import { storeToRefs } from 'pinia'
+
 import CapsuleSection from '@/modules/control-incidencias/components/base/CapsuleSection.vue'
 import InputForm from '@/modules/control-incidencias/components/base/InputForm.vue'
-import { useDatabaseList } from '../../composables/useControlInc'
 import ButtonSave from '../base/ButtonSave.vue'
 import ListRegisterMulti from '../base/ListRegisterMulti.vue'
-const { list, agregar, eliminar } = useDatabaseList()
 
 // Props sin TypeScript
 const props = defineProps({
@@ -42,19 +49,37 @@ const props = defineProps({
     type: Array,
     required: true,
   },
-  // agregar: {
-  //   type: Function,
-  //   required: true,
-  // },
+  tipo: {
+    type: String,
+    required: true,
+  },
 })
 
-// Crear objeto reactivo para almacenar los datos de los campos
-const form = reactive({})
+const tipoConHoras = ['nodo', 'servicio', 'balanceador', 'servidor']
 
-// Inicializamos las claves según los modelos definidos en fields
-props.fields.flat().forEach((input) => {
-  form[input.model] = ''
-})
+const formulario = useFormularioStore()
+const storeRefs = storeToRefs(formulario)
+
+// Mapeo dinámico de listas
+const storeKeyMap = {
+  nodo: 'nodos',
+  servicio: 'servicios',
+  balanceador: 'balanceadores',
+  servidor: 'servidores',
+}
+
+const formKeyMap = {
+  nodo: 'nodoForm',
+  servicio: 'servicioForm',
+  balanceador: 'balanceadorForm',
+  servidor: 'servidorForm',
+}
+
+const list = computed(() => storeRefs[storeKeyMap[props.tipo]]?.value || [])
+const form = storeRefs[formKeyMap[props.tipo]] // ✅ Apunta al form real del store
+
+const agregar = (item) => formulario.agregarElemento(props.tipo, item)
+const eliminar = (item) => formulario.eliminarElemento(props.tipo, item)
 
 const resetForm = () => {
   props.camposAUsar.forEach((campo) => {
@@ -62,6 +87,50 @@ const resetForm = () => {
     form[campo] = typeof valor === 'object' && valor !== null ? null : ''
   })
 }
+
+const horaInicioGlobal = computed({
+  get() {
+    return (
+      {
+        nodo: storeRefs.horaInicioNodoGlobal,
+        servicio: storeRefs.horaInicioServicioGlobal,
+        balanceador: storeRefs.horaInicioBalanceadorGlobal,
+        servidor: storeRefs.horaInicioServidorGlobal,
+      }[props.tipo]?.value || ''
+    )
+  },
+  set(value) {
+    const map = {
+      nodo: storeRefs.horaInicioNodoGlobal,
+      servicio: storeRefs.horaInicioServicioGlobal,
+      balanceador: storeRefs.horaInicioBalanceadorGlobal,
+      servidor: storeRefs.horaInicioServidorGlobal,
+    }
+    if (map[props.tipo]) map[props.tipo].value = value
+  },
+})
+
+const horaFinGlobal = computed({
+  get() {
+    return (
+      {
+        nodo: storeRefs.horaFinNodoGlobal,
+        servicio: storeRefs.horaFinServicioGlobal,
+        balanceador: storeRefs.horaFinBalanceadorGlobal,
+        servidor: storeRefs.horaFinServidorGlobal,
+      }[props.tipo]?.value || ''
+    )
+  },
+  set(value) {
+    const map = {
+      nodo: storeRefs.horaFinNodoGlobal,
+      servicio: storeRefs.horaFinServicioGlobal,
+      balanceador: storeRefs.horaFinBalanceadorGlobal,
+      servidor: storeRefs.horaFinServidorGlobal,
+    }
+    if (map[props.tipo]) map[props.tipo].value = value
+  },
+})
 </script>
 
 <style scoped>

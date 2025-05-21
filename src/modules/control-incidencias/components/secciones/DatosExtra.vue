@@ -1,11 +1,16 @@
 <template>
   <CapsuleSection title="Datos Extra">
     <div class="group-input">
-      <InputForm label="Cantidad de Tickets" type="number" placeholder="1" v-model="form.semana" />
+      <InputForm
+        label="Cantidad de Tickets"
+        type="number"
+        placeholder="1"
+        v-model="datosExtra.cantidadTickets"
+      />
 
       <SelectForm
         label="Analista Registro"
-        v-model="form.analistaRegistro"
+        v-model="datosExtra.analistaRegistro"
         :options="analistaOptions"
       />
     </div>
@@ -13,16 +18,17 @@
 </template>
 
 <script setup>
+import { storeToRefs } from 'pinia'
+import { useFormularioStore } from '@/modules/control-incidencias/stores/useFormularioStore'
+
 import CapsuleSection from '@/modules/control-incidencias/components/base/CapsuleSection.vue'
 import InputForm from '../base/InputForm.vue'
 import SelectForm from '../base/SelectForm.vue'
+
 import { useSelectOptions } from '../../composables/useSelectOptions'
 
-import { ref } from 'vue'
-const form = ref({
-  cantidadTickets: '',
-  analistaRegistro: null,
-})
+const formulario = useFormularioStore()
+const { datosExtra } = storeToRefs(formulario)
 
 const { options: analistaOptions } = useSelectOptions('analistas')
 </script>

@@ -1,62 +1,72 @@
 <template>
   <CapsuleSection title="Transacción">
     <div class="group-input">
-      <ButtonSave :form="form" :camposAUsar="camposAUsar" :agregar="agregar" :onReset="resetForm" />
+      <ButtonSave
+        :form="transaccionForm"
+        :camposAUsar="camposAUsar"
+        :agregar="agregarTransaccion"
+        :onReset="resetForm"
+      />
     </div>
 
     <div class="group-input">
       <SelectForm
         label="Aplicación Afectada"
-        v-model="form.aplicacion"
+        v-model="transaccionForm.aplicacion"
         :options="aplicacionesOptions"
       />
 
-      <SelectForm label="Transacción" v-model="form.transaccion" :options="transaccionesOptions" />
+      <SelectForm
+        label="Transacción"
+        v-model="transaccionForm.transaccion"
+        :options="transaccionesOptions"
+      />
     </div>
     <div class="group-input">
       <SelectForm
         label="Tipo de Transacción"
-        v-model="form.tipoTransaccion"
+        v-model="transaccionForm.tipoTransaccion"
         :options="tiposTransaccionOptions"
       />
 
       <SelectForm
         label="Plataforma Tecnológica Afectada"
-        v-model="form.plataformaAfectada"
+        v-model="transaccionForm.plataformaAfectada"
         :options="plataformaOptions"
       />
     </div>
     <div class="group-input">
-      <SelectForm label="Torre Impactada" v-model="form.torreImpactada" :options="torreOptions" />
+      <SelectForm
+        label="Torre Impactada"
+        v-model="transaccionForm.torreImpactada"
+        :options="torreOptions"
+      />
     </div>
     <div class="group-input">
-      <InputForm label="Hora inicio" type="time" v-model="form.horaInicioTransaccion" />
-      <InputForm label="Hora Fin" type="time" v-model="form.horaFinTransaccion" />
+      <InputForm label="Hora inicio" type="time" v-model="transaccionForm.horaInicioTransaccion" />
+      <InputForm label="Hora Fin" type="time" v-model="transaccionForm.horaFinTransaccion" />
     </div>
-    <ListRegisterMulti :list="list" :eliminar="eliminar" />
+    <ListRegisterMulti :list="transacciones" :eliminar="eliminarTransaccion" />
   </CapsuleSection>
 </template>
 
 <script setup>
+import { computed } from 'vue'
+import { storeToRefs } from 'pinia'
+import { useFormularioStore } from '@/modules/control-incidencias/stores/useFormularioStore'
+
 import CapsuleSection from '@/modules/control-incidencias/components/base/CapsuleSection.vue'
 import SelectForm from '../base/SelectForm.vue'
 import InputForm from '../base/InputForm.vue'
+import ButtonSave from '../base/ButtonSave.vue'
+import ListRegisterMulti from '../base/ListRegisterMulti.vue'
 import { useSelectOptions } from '../../composables/useSelectOptions'
 import { useTransaccionesOptions } from '../../composables/useTransaccionesOptions'
 import { useTiposTransaccionOptions } from '../../composables/useTiposTransaccionOptions'
-import { useDatabaseList } from '../../composables/useControlInc'
-import ButtonSave from '../base/ButtonSave.vue'
-import ListRegisterMulti from '../base/ListRegisterMulti.vue'
-import { ref, computed } from 'vue'
-const form = ref({
-  aplicacion: null,
-  transaccion: null,
-  tipoTransaccion: null,
-  plataformaAfectada: null,
-  torreImpactada: null,
-  horaInicioTransaccion: '',
-  horaFinTransaccion: '',
-})
+
+const formulario = useFormularioStore()
+const { transaccionForm, transacciones } = storeToRefs(formulario)
+const { agregarTransaccion, eliminarTransaccion } = formulario
 
 const camposAUsar = [
   'aplicacion',
@@ -68,25 +78,25 @@ const camposAUsar = [
   'horaFinTransaccion',
 ]
 
-const { list, agregar, eliminar } = useDatabaseList()
+const resetForm = () => {
+  camposAUsar.forEach((campo) => {
+    const valor = transaccionForm.value[campo]
+    transaccionForm.value[campo] = typeof valor === 'object' && valor !== null ? null : ''
+  })
+}
 
 const { options: torreOptions } = useSelectOptions('torres')
 const { options: plataformaOptions } = useSelectOptions('plataformas')
 const { options: aplicacionesOptions } = useSelectOptions('aplicaciones')
+
 const { options: transaccionesOptions } = useTransaccionesOptions(
-  computed(() => form.value.aplicacion?.id),
-)
-const { options: tiposTransaccionOptions } = useTiposTransaccionOptions(
-  computed(() => form.value.aplicacion?.id),
-  computed(() => form.value.transaccion?.id),
+  computed(() => transaccionForm.value.aplicacion?.id),
 )
 
-const resetForm = () => {
-  camposAUsar.forEach((campo) => {
-    const valor = form.value[campo]
-    form.value[campo] = typeof valor === 'object' && valor !== null ? null : ''
-  })
-}
+const { options: tiposTransaccionOptions } = useTiposTransaccionOptions(
+  computed(() => transaccionForm.value.aplicacion?.id),
+  computed(() => transaccionForm.value.transaccion?.id),
+)
 </script>
 
 <style scoped>

@@ -2,14 +2,14 @@
   <CapsuleSection class="section-rca" title="Causa y RCA">
     <BaseTextarea
       label="¿Cuál fue el origen del evento?"
-      v-model="form.origen"
+      v-model="causaRca.origen"
       placeholder="Escriba un resumen del incidente"
     />
     <div class="group-input">
-      <InputCheck label="Aplica RCA" v-model="form.aplicaRCA" />
+      <InputCheck label="Aplica RCA" v-model="causaRca.aplicaRCA" />
       <SelectForm
         label="Responsable RCA"
-        v-model="form.responsableRca"
+        v-model="causaRca.responsableRca"
         :options="responsableRcaOptions"
       />
     </div>
@@ -17,18 +17,17 @@
 </template>
 
 <script setup>
-import { ref } from 'vue'
+import { storeToRefs } from 'pinia'
+import { useFormularioStore } from '@/modules/control-incidencias/stores/useFormularioStore'
+import { useSelectOptions } from '../../composables/useSelectOptions'
 import CapsuleSection from '@/modules/control-incidencias/components/base/CapsuleSection.vue'
 import BaseTextarea from '@/modules/control-incidencias/components/base/TextareaForm.vue'
 import InputCheck from '../base/InputCheck.vue'
 import SelectForm from '../base/SelectForm.vue'
-import { useSelectOptions } from '../../composables/useSelectOptions'
 
-const form = ref({
-  origen: '',
-  aplicaRCA: '',
-  responsableRca: null,
-})
+// Store
+const formulario = useFormularioStore()
+const { causaRca } = storeToRefs(formulario)
 
 const { options: responsableRcaOptions } = useSelectOptions('responsables-rca')
 </script>
