@@ -1,22 +1,20 @@
 export function validarCausaRca(causaRca) {
   const errores = []
 
-  // Si no se llenó ningún campo, no aplica
-  const seDebeValidar =
-    causaRca.origen ||
-    causaRca.aplicaRCA ||
-    (causaRca.responsableRca && Object.keys(causaRca.responsableRca).length > 0)
+  const origen = causaRca.origen?.trim()
+  const responsable = causaRca.responsableRca?.id
 
-  if (!seDebeValidar) return errores
+  // Si NO se llenó NADA, omitir validación
+  const noHayNada = !origen && !causaRca.aplicaRCA && !responsable
+  if (noHayNada) return errores
 
-  if (!causaRca.origen?.trim()) {
+  // Si llenaron algo, validar correctamente
+  if (!origen) {
     errores.push('Debes ingresar el origen del evento.')
   }
 
-  if (causaRca.aplicaRCA) {
-    if (!causaRca.responsableRca?.id) {
-      errores.push('Debes seleccionar un responsable RCA.')
-    }
+  if (causaRca.aplicaRCA && !responsable) {
+    errores.push('Debes seleccionar un responsable RCA.')
   }
 
   return errores

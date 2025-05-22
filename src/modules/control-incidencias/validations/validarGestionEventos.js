@@ -18,9 +18,5 @@ export function validarGestionEventos(gestionEventos) {
     errores.push('Debes ingresar la solución.')
   }
 
-  if (!gestionEventos.leccionesAprendidas?.trim()) {
-    errores.push('Debes ingresar las lecciones aprendidas.')
-  }
-
   return errores
 }

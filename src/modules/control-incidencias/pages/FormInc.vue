@@ -163,6 +163,7 @@ import { useFormularioStore } from '@/modules/control-incidencias/stores/useForm
 import { validarTodoFormulario } from '@/modules/control-incidencias/validations/validarFormularioCompleto'
 import { generarPayload } from '@/modules/control-incidencias/utils/generarPayload'
 import { reactive } from 'vue'
+import axios from 'axios'
 import DatosGenerales from '../components/secciones/DatosGenerales.vue'
 import BaseDatos from '../components/secciones/BaseDatos.vue'
 import ServiciosRed from '../components/secciones/ServiciosRed.vue'
@@ -194,7 +195,13 @@ const guardar = async () => {
   const payload = generarPayload(formulario)
 
   try {
+    console.log('📦 Payload final:', JSON.stringify(payload, null, 2))
+    const API_URL = import.meta.env.VITE_API_URL
+    const res = await axios.post(`${API_URL}/incidencias/formulario`, payload)
+    console.log('✅ Insertado:', res.data)
     console.log('✅ Formulario enviado correctamente:', payload)
+    formulario.$reset() // ⬅️ limpia todo después de enviar
+    Object.keys(mostrar).forEach((key) => (mostrar[key] = false))
   } catch (error) {
     console.error('❌ Error al enviar el formulario:', error)
   }

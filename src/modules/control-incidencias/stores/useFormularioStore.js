@@ -142,7 +142,7 @@ export const useFormularioStore = defineStore('formulario', () => {
 
   const causaRca = ref({
     origen: '',
-    aplicaRCA: false,
+    aplicaRCA: true,
     responsableRca: null,
   })
 
@@ -193,7 +193,6 @@ export const useFormularioStore = defineStore('formulario', () => {
     analistaRegistro: null,
   })
 
-  // RETURN
   const formulario = {
     nodos,
     servicios,
@@ -201,6 +200,70 @@ export const useFormularioStore = defineStore('formulario', () => {
     servidores,
   }
 
+  function $reset() {
+    datosGenerales.value = {
+      fecha: '',
+      semana: '',
+      ticket: '',
+      tipoAfectacion: null,
+      resumen: '',
+      impacto: '',
+    }
+    baseDatosForm.value = { bd: null }
+    baseDatos.value = []
+    horaInicioBdGlobal.value = ''
+    horaFinBdGlobal.value = ''
+
+    nodoForm.value = { nodo: '', ipNodo: '' }
+    nodos.value = []
+    horaInicioNodoGlobal.value = ''
+    horaFinNodoGlobal.value = ''
+
+    servicioForm.value = { nombreServicio: '', ipServicio: '' }
+    servicios.value = []
+    horaInicioServicioGlobal.value = ''
+    horaFinServicioGlobal.value = ''
+
+    balanceadorForm.value = { balanceador: '', nombreBalanceador: '' }
+    balanceadores.value = []
+    horaInicioBalanceadorGlobal.value = ''
+    horaFinBalanceadorGlobal.value = ''
+
+    servidorForm.value = { servidor: '', nombreServidor: '' }
+    servidores.value = []
+    horaInicioServidorGlobal.value = ''
+    horaFinServidorGlobal.value = ''
+
+    causaRca.value = {
+      origen: '',
+      aplicaRCA: false,
+      responsableRca: null,
+    }
+
+    transaccionForm.value = {
+      aplicacion: null,
+      transaccion: null,
+      tipoTransaccion: null,
+      plataformaAfectada: null,
+      torreImpactada: null,
+      horaInicioTransaccion: '',
+      horaFinTransaccion: '',
+    }
+    transacciones.value = []
+
+    gestionEventos.value = {
+      accionesRealizadas: '',
+      solucion: '',
+      leccionesAprendidas: '',
+    }
+
+    datosExtra.value = {
+      cantidadTickets: '',
+      analistaRegistro: null,
+    }
+  }
+
+  // RETURN
   return {
     datosGenerales,
     setDatosGenerales,
@@ -244,5 +307,6 @@ export const useFormularioStore = defineStore('formulario', () => {
     gestionEventos,
 
     datosExtra,
+    $reset,
   }
 })
