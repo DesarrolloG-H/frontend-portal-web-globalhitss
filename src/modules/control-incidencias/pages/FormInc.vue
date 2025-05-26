@@ -28,15 +28,6 @@
               },
               { label: 'IP Nodo', type: 'text', placeholder: 'IP Nodo', model: 'ipNodo' },
             ],
-            // [
-            //   {
-            //     label: 'Hora Inicio',
-            //     type: 'time',
-            //     placeholder: 'Hora Inicio',
-            //     model: 'horaInicioNodo',
-            //   },
-            //   { label: 'Hora Fin', type: 'time', placeholder: 'Hora Fin', model: 'horaFinNodo' },
-            // ],
           ]"
           :camposAUsar="['nombreNodo', 'ipNodo']"
         />
@@ -59,20 +50,6 @@
                 model: 'ipServicio',
               },
             ],
-            // [
-            //   {
-            //     label: 'Hora Inicio',
-            //     type: 'time',
-            //     placeholder: 'Hora Inicio',
-            //     model: 'horaInicioServicio',
-            //   },
-            //   {
-            //     label: 'Hora Fin',
-            //     type: 'time',
-            //     placeholder: 'Hora Fin',
-            //     model: 'horaFinServicio',
-            //   },
-            // ],
           ]"
           :camposAUsar="['nombreServicio', 'ipServicio']"
         />
@@ -95,20 +72,6 @@
                 model: 'ipBalanceador',
               },
             ],
-            // [
-            //   {
-            //     label: 'Hora Inicio',
-            //     type: 'time',
-            //     placeholder: 'Hora Inicio',
-            //     model: 'horaInicioBalanceador',
-            //   },
-            //   {
-            //     label: 'Hora Fin',
-            //     type: 'time',
-            //     placeholder: 'Hora Fin',
-            //     model: 'horaFinBalanceador',
-            //   },
-            // ],
           ]"
           :camposAUsar="['nombreBalanceador', 'ipBalanceador']"
         />
@@ -131,20 +94,6 @@
                 model: 'ipServidor',
               },
             ],
-            // [
-            //   {
-            //     label: 'Hora Inicio',
-            //     type: 'time',
-            //     placeholder: 'Hora Inicio',
-            //     model: 'horaInicioServidor',
-            //   },
-            //   {
-            //     label: 'Hora Fin',
-            //     type: 'time',
-            //     placeholder: 'Hora Fin',
-            //     model: 'horaFinServidor',
-            //   },
-            // ],
           ]"
           :camposAUsar="['nombreServidor', 'ipServidor']"
         />
@@ -153,7 +102,7 @@
       <TransaccionRed />
       <GestionEventos />
       <DatosExtra />
-      <button type="submit" class="btn btn-primary">Enviar</button>
+      <ButtonSaveForm />
     </form>
   </div>
 </template>
@@ -171,6 +120,7 @@ import CausaRca from '../components/secciones/CausaRca.vue'
 import TransaccionRed from '../components/secciones/TransaccionRed.vue'
 import GestionEventos from '../components/secciones/GestionEventos.vue'
 import DatosExtra from '../components/secciones/DatosExtra.vue'
+import ButtonSaveForm from '../components/base/ButtonSaveForm.vue'
 
 // Reactive para controlar qué secciones mostrar
 const mostrar = reactive({
