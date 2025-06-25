@@ -14,30 +14,16 @@
 </template>
 
 <script setup>
+import { toMySQLDatetime } from '../../utils/formatDatetime'
+
 defineProps({
   list: Array,
   eliminar: Function,
 })
 
-// function obtenerValores(item) {
-//   if (typeof item === 'object' && item !== null) {
-//     if ('nodo' in item && 'ipNodo' in item) {
-//       return [item.nodo, item.ipNodo]
-//     }
-//     if ('servicio' in item && 'nombreServicio' in item) {
-//       return [item.servicio, item.nombreServicio]
-//     }
-//     if ('balanceador' in item && 'nombreBalanceador' in item) {
-//       return [item.balanceador, item.nombreBalanceador]
-//     }
-//     if ('servidor' in item && 'nombreServidor' in item) {
-//       return [item.servidor, item.nombreServidor]
-//     }
-//     // Si no entra en ningún caso, mostrar todos los valores:
-//     return Object.values(item)
-//   }
-//   return [String(item)]
-// }
+function esFechaLocalISO(str) {
+  return typeof str === 'string' && /^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}$/.test(str)
+}
 
 function obtenerValores(item) {
   if (typeof item === 'object' && item !== null) {
@@ -45,6 +31,10 @@ function obtenerValores(item) {
       if (typeof valor === 'object' && valor !== null) {
         return valor.nombre || valor.label || JSON.stringify(valor)
       }
+      if (esFechaLocalISO(valor)) {
+        return toMySQLDatetime(valor)
+      }
+
       return valor
     })
   }
