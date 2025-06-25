@@ -22,8 +22,8 @@
     </div>
     <!-- Inputs de hora globales por tipo -->
     <div class="group-input" v-if="tipoConHoras.includes(tipo)">
-      <InputForm label="Hora Inicio" type="time" v-model="horaInicioGlobal" />
-      <InputForm label="Hora Fin" type="time" v-model="horaFinGlobal" />
+      <InputForm label="Hora Inicio" type="datetime-local" v-model="horaInicioGlobal" />
+      <InputForm label="Hora Fin" type="datetime-local" v-model="horaFinGlobal" />
     </div>
   </CapsuleSection>
 </template>

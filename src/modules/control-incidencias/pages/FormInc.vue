@@ -10,7 +10,6 @@
         <label><input type="checkbox" v-model="mostrar.servicios" /> Servicios</label>
         <label><input type="checkbox" v-model="mostrar.balanceador" /> Balanceador</label>
         <label><input type="checkbox" v-model="mostrar.servidor" /> Servidor</label>
-        <label><input type="checkbox" v-model="mostrar.causaRca" /> Causa RCA</label>
       </div>
       <div class="group-base">
         <BaseDatos v-show="mostrar.baseDatos" />
@@ -97,7 +96,7 @@
           ]"
           :camposAUsar="['nombreServidor', 'ipServidor']"
         />
-        <CausaRca v-show="mostrar.causaRca" />
+        <CausaRca />
       </div>
       <TransaccionRed />
       <GestionEventos />
@@ -129,7 +128,6 @@ const mostrar = reactive({
   servicios: false,
   balanceador: false,
   servidor: false,
-  causaRca: false,
 })
 
 // PAYLOAD

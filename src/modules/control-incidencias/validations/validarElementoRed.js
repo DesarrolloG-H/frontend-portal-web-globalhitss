@@ -54,12 +54,11 @@ export function validarElementoRed(tipo, formulario) {
   if (!horaFin) errores.push(`La hora de fin de ${tipo} es obligatoria.`)
 
   if (horaInicio && horaFin) {
-    const [h1, m1] = horaInicio.split(':').map(Number)
-    const [h2, m2] = horaFin.split(':').map(Number)
-    const t1 = h1 * 60 + m1
-    const t2 = h2 * 60 + m2
-    if (t2 <= t1) {
-      errores.push(`La hora fin debe ser mayor a la hora inicio en ${tipo}.`)
+    const inicio = new Date(horaInicio)
+    const fin = new Date(horaFin)
+
+    if (inicio >= fin) {
+      errores.push(`La hora fin de ${tipo} debe ser mayor que la hora inicio.`)
     }
   }
 

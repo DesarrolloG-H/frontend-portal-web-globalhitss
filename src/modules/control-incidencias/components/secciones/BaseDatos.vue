@@ -17,8 +17,8 @@
     <ListRegister :list="baseDatos" :eliminar="eliminarBaseDato" />
 
     <div class="group-input">
-      <InputForm label="Hora Inicio" type="time" v-model="horaInicioBdGlobal" />
-      <InputForm label="Hora Fin" type="time" v-model="horaFinBdGlobal" />
+      <InputForm label="Hora Inicio" type="datetime-local" v-model="horaInicioBdGlobal" />
+      <InputForm label="Hora Fin" type="datetime-local" v-model="horaFinBdGlobal" />
     </div>
   </CapsuleSection>
 </template>

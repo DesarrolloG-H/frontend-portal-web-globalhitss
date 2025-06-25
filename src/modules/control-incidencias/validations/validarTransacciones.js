@@ -19,9 +19,10 @@ export function validarTransacciones(transacciones) {
     if (!t.horaFinTransaccion) errores.push(`${label}: Hora de fin requerida.`)
 
     if (t.horaInicioTransaccion && t.horaFinTransaccion) {
-      const [h1, m1] = t.horaInicioTransaccion.split(':').map(Number)
-      const [h2, m2] = t.horaFinTransaccion.split(':').map(Number)
-      if (h1 * 60 + m1 >= h2 * 60 + m2) {
+      const inicio = new Date(t.horaInicioTransaccion)
+      const fin = new Date(t.horaFinTransaccion)
+
+      if (inicio >= fin) {
         errores.push(`${label}: Hora fin debe ser mayor que la hora inicio.`)
       }
     }

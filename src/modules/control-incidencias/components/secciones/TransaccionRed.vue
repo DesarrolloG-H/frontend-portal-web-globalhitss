@@ -43,8 +43,16 @@
       />
     </div>
     <div class="group-input">
-      <InputForm label="Hora inicio" type="time" v-model="transaccionForm.horaInicioTransaccion" />
-      <InputForm label="Hora Fin" type="time" v-model="transaccionForm.horaFinTransaccion" />
+      <InputForm
+        label="Hora inicio"
+        type="datetime-local"
+        v-model="transaccionForm.horaInicioTransaccion"
+      />
+      <InputForm
+        label="Hora Fin"
+        type="datetime-local"
+        v-model="transaccionForm.horaFinTransaccion"
+      />
     </div>
     <ListRegisterMulti :list="transacciones" :eliminar="eliminarTransaccion" />
   </CapsuleSection>

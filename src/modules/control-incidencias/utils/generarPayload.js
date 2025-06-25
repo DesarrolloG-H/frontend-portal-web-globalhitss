@@ -1,3 +1,5 @@
+import { toMySQLDatetime } from './formatDatetime'
+
 export function generarPayload(formulario) {
   return {
     datosGenerales: {
@@ -6,28 +8,46 @@ export function generarPayload(formulario) {
     },
     baseDatos: formulario.baseDatos.map((bd) => ({
       ...bd,
-      horaInicioBd: formulario.horaInicioBdGlobal,
-      horaFinBd: formulario.horaFinBdGlobal,
+      horaInicioBd: formulario.horaInicioBdGlobal
+        ? toMySQLDatetime(formulario.horaInicioBdGlobal)
+        : null,
+      horaFinBd: formulario.horaFinBdGlobal ? toMySQLDatetime(formulario.horaFinBdGlobal) : null,
     })),
     nodos: formulario.nodos.map((n) => ({
       ...n,
-      horaInicioNodo: formulario.horaInicioNodoGlobal,
-      horaFinNodo: formulario.horaFinNodoGlobal,
+      horaInicioNodo: formulario.horaInicioNodoGlobal
+        ? toMySQLDatetime(formulario.horaInicioNodoGlobal)
+        : null,
+      horaFinNodo: formulario.horaFinNodoGlobal
+        ? toMySQLDatetime(formulario.horaFinNodoGlobal)
+        : null,
     })),
     servicios: formulario.servicios.map((s) => ({
       ...s,
-      horaInicioServicio: formulario.horaInicioServicioGlobal,
-      horaFinServicio: formulario.horaFinServicioGlobal,
+      horaInicioServicio: formulario.horaInicioServicioGlobal
+        ? toMySQLDatetime(formulario.horaInicioServicioGlobal)
+        : null,
+      horaFinServicio: formulario.horaFinServicioGlobal
+        ? toMySQLDatetime(formulario.horaFinServicioGlobal)
+        : null,
     })),
     balanceadores: formulario.balanceadores.map((b) => ({
       ...b,
-      horaInicioBalanceador: formulario.horaInicioBalanceadorGlobal,
-      horaFinBalanceador: formulario.horaFinBalanceadorGlobal,
+      horaInicioBalanceador: formulario.horaInicioBalanceadorGlobal
+        ? toMySQLDatetime(formulario.horaInicioBalanceadorGlobal)
+        : null,
+      horaFinBalanceador: formulario.horaFinBalanceadorGlobal
+        ? toMySQLDatetime(formulario.horaFinBalanceadorGlobal)
+        : null,
     })),
     servidores: formulario.servidores.map((s) => ({
       ...s,
-      horaInicioServidor: formulario.horaInicioServidorGlobal,
-      horaFinServidor: formulario.horaFinServidorGlobal,
+      horaInicioServidor: formulario.horaInicioServidorGlobal
+        ? toMySQLDatetime(formulario.horaInicioServidorGlobal)
+        : null,
+      horaFinServidor: formulario.horaFinServidorGlobal
+        ? toMySQLDatetime(formulario.horaFinServidorGlobal)
+        : null,
     })),
     causaRca: {
       ...formulario.causaRca,
@@ -39,8 +59,10 @@ export function generarPayload(formulario) {
       tipoTransaccion: t.tipoTransaccion?.id || null,
       plataformaAfectada: t.plataformaAfectada?.id || null,
       torreImpactada: t.torreImpactada?.id || null,
-      horaInicioTransaccion: t.horaInicioTransaccion,
-      horaFinTransaccion: t.horaFinTransaccion,
+      horaInicioTransaccion: t.horaInicioTransaccion
+        ? toMySQLDatetime(t.horaInicioTransaccion)
+        : null,
+      horaFinTransaccion: t.horaFinTransaccion ? toMySQLDatetime(t.horaFinTransaccion) : null,
     })),
     gestionEventos: {
       ...formulario.gestionEventos,

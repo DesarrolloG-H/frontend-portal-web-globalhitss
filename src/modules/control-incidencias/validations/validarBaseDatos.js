@@ -28,12 +28,11 @@ export function validarBaseDatos(formulario) {
   }
 
   if (horaInicioBdGlobal && horaFinBdGlobal) {
-    const [h1, m1] = horaInicioBdGlobal.split(':').map(Number)
-    const [h2, m2] = horaFinBdGlobal.split(':').map(Number)
-    const inicio = h1 * 60 + m1
-    const fin = h2 * 60 + m2
-    if (fin <= inicio) {
-      errores.push('La hora fin debe ser mayor a la hora inicio en bases de datos.')
+    const inicio = new Date(horaInicioBdGlobal)
+    const fin = new Date(horaFinBdGlobal)
+
+    if (inicio >= fin) {
+      errores.push('La hora fin de la Base de Datos debe ser mayor que la hora inicio.')
     }
   }
 

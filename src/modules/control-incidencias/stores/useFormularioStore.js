@@ -189,7 +189,7 @@ export const useFormularioStore = defineStore('formulario', () => {
   // DATOS EXTRA
 
   const datosExtra = ref({
-    cantidadTickets: '',
+    cantidadTickets: 1,
     analistaRegistro: null,
   })
 
